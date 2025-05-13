@@ -12,7 +12,6 @@ import PrivateRoute from "./components/PrivateRoute.jsx";
 import AddStudent from "./components/AddStudent.jsx";
 import StudentDetail from "./components/StudentDetail.jsx";
 const router = createBrowserRouter([
-  { path: "/", element: <Dashboard /> },
   { path: "/login", element: <Login /> },
   { path: "/signup", element: <Signup /> },
   {
@@ -21,6 +20,15 @@ const router = createBrowserRouter([
     element: (
       <PrivateRoute>
         <AddStudent />
+      </PrivateRoute>
+    ),
+  },
+  {
+    path: "/",
+
+    element: (
+      <PrivateRoute>
+        <Dashboard />
       </PrivateRoute>
     ),
   },
