@@ -8,167 +8,168 @@ const getInitialStudents = () => {
   return storedStudents
     ? JSON.parse(storedStudents)
     : [
-        {
-          id: 1,
-          name: "Vishesh Sharma",
-          email: "visheshking123@gmail.com",
-          course: "Computer Science",
-          gpa: 9.8,
-          avatar: "https://i.pravatar.cc/150?u=visheshking123@gmail.com",
-        },
-        {
-          id: 2,
-          name: "Alistir Cook",
-          email: "cook@gmail.com",
-          course: "Mathematics",
-          gpa: 3.9,
-          avatar: "https://i.pravatar.cc/150?u=cook@gmail.com",
-        },
-        {
-          id: 3,
-          name: "Mitchell Johnson",
-          email: "mitchell.johnson@gmail.com",
-          course: "Physics",
-          gpa: 3.7,
-          avatar: "https://i.pravatar.cc/150?u=mitchell.johnson@gmail.com",
-        },
-        {
-          id: 4,
-          name: "Shane Watson",
-          email: "shane.watson@gmail.com",
-          course: "Computer Science",
-          gpa: 3.5,
-          avatar: "https://i.pravatar.cc/150?u=shane.watson@gmail.com",
-        },
-        {
-          id: 5,
-          name: "Dale Steyn",
-          email: "dale.steyn@gmail.com",
-          course: "Chemistry",
-          gpa: 3.6,
-          avatar: "https://i.pravatar.cc/150?u=dale.steyn@gmail.com",
-        },
-        {
-          id: 6,
-          name: "Sachin Tendulkar",
-          email: "sachin.tendulkar@gmail.com",
-          course: "Mathematics",
-          gpa: 9.5,
-          avatar: "https://i.pravatar.cc/150?u=sachin.tendulkar@gmail.com",
-        },
-        {
-          id: 7,
-          name: "Virat Kohli",
-          email: "virat.kohli@gmail.com",
-          course: "Physics",
-          gpa: 10,
-          avatar: "https://i.pravatar.cc/150?u=virat.kohli@gmail.com",
-        },
-        {
-          id: 8,
-          name: "AB de Villiers",
-          email: "ab.devilliers@gmail.com",
-          course: "Computer Science",
-          gpa: 9.2,
-          avatar: "https://i.pravatar.cc/150?u=ab.devilliers@gmail.com",
-        },
-        {
-          id: 9,
-          name: "Kane Williamson",
-          email: "kane.williamson@gmail.com",
-          course: "Chemistry",
-          gpa: 8.7,
-          avatar: "https://i.pravatar.cc/150?u=kane.williamson@gmail.com",
-        },
-        {
-          id: 10,
-          name: "Joe Root",
-          email: "joe.root@gmail.com",
-          course: "Mathematics",
-          gpa: 8.5,
-          avatar: "https://i.pravatar.cc/150?u=joe.root@gmail.com",
-        },
-        {
-          id: 11,
-          name: "Steve Smith",
-          email: "steve.smith@gmail.com",
-          course: "Physics",
-          gpa: 8.8,
-          avatar: "https://i.pravatar.cc/150?u=steve.smith@gmail.com",
-        },
-        {
-          id: 12,
-          name: "Ben Stokes",
-          email: "ben.stokes@gmail.com",
-          course: "Computer Science",
-          gpa: 8.1,
-          avatar: "https://i.pravatar.cc/150?u=ben.stokes@gmail.com",
-        },
-        {
-          id: 13,
-          name: "Rohit Sharma",
-          email: "rohit.sharma@gmail.com",
-          course: "Mathematics",
-          gpa: 8.6,
-          avatar: "https://i.pravatar.cc/150?u=rohit.sharma@gmail.com",
-        },
-        {
-          id: 14,
-          name: "Jasprit Bumrah",
-          email: "jasprit.bumrah@gmail.com",
-          course: "Physics",
-          gpa: 8.3,
-          avatar: "https://i.pravatar.cc/150?u=jasprit.bumrah@gmail.com",
-        },
-        {
-          id: 15,
-          name: "Rashid Khan",
-          email: "rashid.khan@gmail.com",
-          course: "Chemistry",
-          gpa: 8.9,
-          avatar: "https://i.pravatar.cc/150?u=rashid.khan@gmail.com",
-        },
-        {
-          id: 16,
-          name: "Babar Azam",
-          email: "babar.azam@gmail.com",
-          course: "Computer Science",
-          gpa: 0,
-          avatar: "https://i.pravatar.cc/150?u=babar.azam@gmail.com",
-        },
-        {
-          id: 17,
-          name: "David Warner",
-          email: "david.warner@gmail.com",
-          course: "Mathematics",
-          gpa: 8.2,
-          avatar: "https://i.pravatar.cc/150?u=david.warner@gmail.com",
-        },
-        {
-          id: 18,
-          name: "Quinton de Kock",
-          email: "quinton.dekock@gmail.com",
-          course: "Physics",
-          gpa: 8.4,
-          avatar: "https://i.pravatar.cc/150?u=quinton.dekock@gmail.com",
-        },
-        {
-          id: 19,
-          name: "Kagiso Rabada",
-          email: "kagiso.rabada@gmail.com",
-          course: "Chemistry",
-          gpa: 8.7,
-          avatar: "https://i.pravatar.cc/150?u=kagiso.rabada@gmail.com",
-        },
-        {
-          id: 20,
-          name: "Shubman Gill",
-          email: "shubman.gill@gmail.com",
-          course: "Computer Science",
-          gpa: 8.8,
-          avatar: "https://i.pravatar.cc/150?u=shubman.gill@gmail.com",
-        },
-      ];
+      {
+        id: 1,
+        name: "Amit Sharma",
+        email: "amit.sharma@example.com",
+        course: "Computer Science",
+        gpa: 9.8,
+        avatar: "https://i.pravatar.cc/150?u=amit.sharma@example.com"
+      },
+      {
+        id: 2,
+        name: "Ravi Kumar",
+        email: "ravi.kumar@example.com",
+        course: "Mathematics",
+        gpa: 3.9,
+        avatar: "https://i.pravatar.cc/150?u=ravi.kumar@example.com"
+      },
+      {
+        id: 3,
+        name: "Sanjay Verma",
+        email: "sanjay.verma@example.com",
+        course: "Physics",
+        gpa: 3.7,
+        avatar: "https://i.pravatar.cc/150?u=sanjay.verma@example.com"
+      },
+      {
+        id: 4,
+        name: "Vikram Patel",
+        email: "vikram.patel@example.com",
+        course: "Computer Science",
+        gpa: 3.5,
+        avatar: "https://i.pravatar.cc/150?u=vikram.patel@example.com"
+      },
+      {
+        id: 5,
+        name: "Rajesh Gupta",
+        email: "rajesh.gupta@example.com",
+        course: "Chemistry",
+        gpa: 3.6,
+        avatar: "https://i.pravatar.cc/150?u=rajesh.gupta@example.com"
+      },
+      {
+        id: 6,
+        name: "Sunil Joshi",
+        email: "sunil.joshi@example.com",
+        course: "Mathematics",
+        gpa: 9.5,
+        avatar: "https://i.pravatar.cc/150?u=sunil.joshi@example.com"
+      },
+      {
+        id: 7,
+        name: "Deepak Mehta",
+        email: "deepak.mehta@example.com",
+        course: "Physics",
+        gpa: 10,
+        avatar: "https://i.pravatar.cc/150?u=deepak.mehta@example.com"
+      },
+      {
+        id: 8,
+        name: "Karan Singh",
+        email: "karan.singh@example.com",
+        course: "Computer Science",
+        gpa: 9.2,
+        avatar: "https://i.pravatar.cc/150?u=karan.singh@example.com"
+      },
+      {
+        id: 9,
+        name: "Anil Malhotra",
+        email: "anil.malhotra@example.com",
+        course: "Chemistry",
+        gpa: 8.7,
+        avatar: "https://i.pravatar.cc/150?u=anil.malhotra@example.com"
+      },
+      {
+        id: 10,
+        name: "Rohit Kapoor",
+        email: "rohit.kapoor@example.com",
+        course: "Mathematics",
+        gpa: 8.5,
+        avatar: "https://i.pravatar.cc/150?u=rohit.kapoor@example.com"
+      },
+      {
+        id: 11,
+        name: "Nikhil Iyer",
+        email: "nikhil.iyer@example.com",
+        course: "Physics",
+        gpa: 8.8,
+        avatar: "https://i.pravatar.cc/150?u=nikhil.iyer@example.com"
+      },
+      {
+        id: 12,
+        name: "Arjun Rao",
+        email: "arjun.rao@example.com",
+        course: "Computer Science",
+        gpa: 8.1,
+        avatar: "https://i.pravatar.cc/150?u=arjun.rao@example.com"
+      },
+      {
+        id: 13,
+        name: "Manish Jain",
+        email: "manish.jain@example.com",
+        course: "Mathematics",
+        gpa: 8.6,
+        avatar: "https://i.pravatar.cc/150?u=manish.jain@example.com"
+      },
+      {
+        id: 14,
+        name: "Ajay Saxena",
+        email: "ajay.saxena@example.com",
+        course: "Physics",
+        gpa: 8.3,
+        avatar: "https://i.pravatar.cc/150?u=ajay.saxena@example.com"
+      },
+      {
+        id: 15,
+        name: "Kunal Bhat",
+        email: "kunal.bhat@example.com",
+        course: "Chemistry",
+        gpa: 8.9,
+        avatar: "https://i.pravatar.cc/150?u=kunal.bhat@example.com"
+      },
+      {
+        id: 16,
+        name: "Vivek Chaudhary",
+        email: "vivek.chaudhary@example.com",
+        course: "Computer Science",
+        gpa: 0,
+        avatar: "https://i.pravatar.cc/150?u=vivek.chaudhary@example.com"
+      },
+      {
+        id: 17,
+        name: "Harsh Reddy",
+        email: "harsh.reddy@example.com",
+        course: "Mathematics",
+        gpa: 8.2,
+        avatar: "https://i.pravatar.cc/150?u=harsh.reddy@example.com"
+      },
+      {
+        id: 18,
+        name: "Pranav Das",
+        email: "pranav.das@example.com",
+        course: "Physics",
+        gpa: 8.4,
+        avatar: "https://i.pravatar.cc/150?u=pranav.das@example.com"
+      },
+      {
+        id: 19,
+        name: "Siddharth Nair",
+        email: "siddharth.nair@example.com",
+        course: "Chemistry",
+        gpa: 8.7,
+        avatar: "https://i.pravatar.cc/150?u=siddharth.nair@example.com"
+      },
+      {
+        id: 20,
+        name: "Gaurav Chatterjee",
+        email: "gaurav.chatterjee@example.com",
+        course: "Computer Science",
+        gpa: 8.8,
+        avatar: "https://i.pravatar.cc/150?u=gaurav.chatterjee@example.com"
+      }
+    ]
+    
 };
 
 let students = getInitialStudents();
