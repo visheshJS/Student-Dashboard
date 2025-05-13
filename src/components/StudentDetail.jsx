@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import React, { useState, useEffect, use } from 'react';
+import { Link, useParams, useNavigate } from 'react-router-dom';
 import api from '../api/mockApi';
 import { useTheme } from '../context/ThemeContext';
 
@@ -9,8 +9,24 @@ const StudentDetail = () => {
   const [student, setStudent] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
+
+  
+  const deleteStudent = async () => {
+    try {
+      console.log(`Attempting to delete student with ID: ${id}`);
+      const response = await api.delete(`/api/students/${id}`);
+      console.log('Delete response:', response);
+      navigate('/');
+    } catch (err) {
+      console.error('Delete error:', err);
+      setError('Failed to delete student');
+    }
+  };
+  
 
   useEffect(() => {
+
     const fetchStudent = async () => {
       try {
         const response = await api.get(`/api/students/${id}`);
@@ -95,13 +111,14 @@ const StudentDetail = () => {
             <span className="text-gray-900 dark:text-blue-300">{student.gpa}</span>
           </div>
         </div>
-        <div className="mt-8 flex justify-center">
+        <div className="mt-8 flex gap-10 justify-center">
           <Link
             to="/"
-            className="px-6 py-2 rounded-lg text-white bg-blue-600 hover:bg-blue-700 dark:bg-gradient-to-r dark:from-blue-700 dark:to-blue-500 dark:hover:from-blue-800 dark:hover:to-blue-600 transition font-semibold shadow-lg"
+            className="px-6 py-2 rounded-lg text-white bg-blue-600 hover:bg-blue-700 dark:bg-gray-700 dark:text-blue-300 dark:hover:bg-gray-800 transition font-semibold shadow-lg"
           >
             &larr; Back to Dashboard
           </Link>
+          <button onClick={deleteStudent} className='bg-red-400 px-6 py-2 font-semibold shadow-lg rounded-lg cursor-pointer text-white hover:bg-red-500' >Delete</button>
         </div>
       </div>
     </div>
