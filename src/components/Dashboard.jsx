@@ -13,7 +13,7 @@ const Dashboard = () => {
   const { currentUser, logout } = useAuth();
   const navigate = useNavigate();
   const { theme, toggleTheme } = useTheme();
-
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   // Pagination state
   const [currentPage, setCurrentPage] = useState(1);
   const [studentsPerPage] = useState(5); // Students per page
@@ -27,6 +27,16 @@ const Dashboard = () => {
       console.error("Failed to log out:", err);
     }
   };
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (isMenuOpen && !event.target.closest(".menu-container")) {
+        setIsMenuOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [isMenuOpen]);
 
   useEffect(() => {
     const fetchStudents = async () => {
@@ -65,29 +75,95 @@ const Dashboard = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-100 via-blue-50 to-white dark:from-[#0f2027] dark:via-[#203a43] dark:to-[#2c5364] py-8 px-4">
       <div className="container mx-auto bg-white dark:bg-black bg-opacity-90 dark:bg-opacity-80 rounded-2xl shadow-2xl p-8 backdrop-blur-md border border-blue-200 dark:border-blue-800">
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 pb-4 border-b border-gray-200 dark:border-blue-800">
-          <h1 className="text-3xl font-extrabold text-gray-800 dark:text-blue-200 mb-4 md:mb-0">
+        <div className="flex flex-row justify-between items-center mb-6 pb-4 border-b border-gray-200 dark:border-blue-800">
+          <h1 className="text-md sm:text-2xl md:text-3xl font-extrabold text-gray-800 dark:text-blue-200 truncate">
             Student Dashboard
           </h1>
-          <div className="flex flex-col sm:flex-row gap-3">
+
+          {/* Mobile Hamburger Menu */}
+          <div className="md:hidden menu-container relative flex-shrink-0">
+            <button
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              className="flex items-center px-3 py-2 border rounded border-gray-400 dark:border-blue-500 hover:text-blue-500 hover:border-blue-500 dark:hover:text-blue-300"
+              aria-label="Toggle menu"
+            >
+              <svg
+                className="h-5 w-5 text-gray-600 dark:text-blue-300"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
+                  clipRule="evenodd"
+                />
+              </svg>
+            </button>
+
+            {isMenuOpen && (
+              <div className="absolute right-0 mt-2 w-48 py-2 bg-white dark:bg-gray-800 rounded-md shadow-xl z-20 border border-gray-200 dark:border-blue-900">
+                <button
+                  onClick={() => {
+                    toggleTheme();
+                    setIsMenuOpen(false);
+                  }}
+                  className="block w-full text-left px-4 py-2 text-gray-800 dark:text-blue-200 hover:bg-gray-100 dark:hover:bg-gray-700"
+                >
+                  {theme === "dark" ? "☀️ Light Mode" : "🌙 Dark Mode"}
+                </button>
+
+                {currentUser ? (
+                  <>
+                    <Link
+                      to="/add-student"
+                      onClick={() => setIsMenuOpen(false)}
+                      className="block w-full text-left px-4 py-2 text-gray-800 dark:text-blue-200 hover:bg-gray-100 dark:hover:bg-gray-700"
+                    >
+                      Add New Student
+                    </Link>
+                    <button
+                      onClick={() => {
+                        handleLogout();
+                        setIsMenuOpen(false);
+                      }}
+                      className="block w-full text-left px-4 py-2 text-red-600 dark:text-red-400 hover:bg-gray-100 dark:hover:bg-gray-700"
+                    >
+                      Logout
+                    </button>
+                  </>
+                ) : (
+                  <Link
+                    to="/login"
+                    onClick={() => setIsMenuOpen(false)}
+                    className="block w-full text-left px-4 py-2 text-gray-800 dark:text-blue-200 hover:bg-gray-100 dark:hover:bg-gray-700"
+                  >
+                    Login to Add Students
+                  </Link>
+                )}
+              </div>
+            )}
+          </div>
+
+          {/* Desktop Buttons */}
+          <div className="hidden md:flex flex-row gap-3">
             <button
               onClick={toggleTheme}
-              className="px-3 py-2 rounded-lg bg-black hover:bg-blue-700 dark:bg-gray-700 text-white dark:text-blue-300 dark:hover:bg-gray-800 transition cursor-pointer"
+              className="px-3 py-2 rounded-lg bg-black hover:bg-gray-800 text-white dark:bg-gray-700 dark:text-blue-300 dark:hover:bg-gray-800 transition cursor-pointer"
             >
               {theme === "dark" ? "☀️ Light" : "🌙 Dark"}
             </button>
-            
+
             {currentUser ? (
               <>
                 <Link
                   to="/add-student"
-                  className="bg-black hover:bg-gray-800 dark:bg-gray-700 dark:text-blue-300 dark:hover:bg-gray-800  text-white py-2 px-5 rounded-lg shadow-md transition-colors text-center"
+                  className="bg-black hover:bg-gray-800 dark:bg-gradient-to-r dark:bg-gray-700 dark:text-blue-300 dark:hover:bg-gray-800 text-white py-2 px-5 rounded-lg shadow-md transition-colors text-center"
                 >
                   Add New Student
                 </Link>
                 <button
                   onClick={handleLogout}
-                  className="bg-black hover:bg-gray-800 dark:bg-gray-700 dark:text-blue-300 dark:hover:bg-gray-800  text-white py-2 px-5 rounded-lg cursor-pointer shadow-md transition-colors"
+                  className="bg-red-600 hover:bg-red-700 dark:bg-gray-700 dark:text-blue-300 dark:hover:bg-gray-800 text-white py-2 px-5 rounded-lg cursor-pointer shadow-md transition-colors"
                 >
                   Logout
                 </button>
@@ -95,7 +171,7 @@ const Dashboard = () => {
             ) : (
               <Link
                 to="/login"
-                className="bg-blue-600 hover:bg-blue-700 dark:bg-gradient-to-r dark:from-blue-700 dark:to-blue-500 dark:hover:from-blue-800 dark:hover:to-blue-600 text-white py-2 px-5 rounded-lg shadow-md transition-colors"
+                className="bg-blue-600 hover:bg-blue-700 dark:bg-gray-700 dark:text-blue-300 dark:hover:bg-gray-800 text-white py-2 px-5 rounded-lg shadow-md transition-colors"
               >
                 Login to Add Students
               </Link>
@@ -103,6 +179,7 @@ const Dashboard = () => {
           </div>
         </div>
 
+        {/* Rest of your Dashboard component remains unchanged */}
         <div className="mb-6">
           <label
             htmlFor="course-filter"
