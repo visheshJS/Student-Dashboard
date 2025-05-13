@@ -12,6 +12,11 @@ const Dashboard = () => {
   const { currentUser, logout } = useAuth();
   const navigate = useNavigate();
 
+  // Pagination state
+  const [currentPage, setCurrentPage] = useState(1);
+  const [studentsPerPage] = useState(5); // Students per page
+
+  // Handle logout function
   const handleLogout = async () => {
     try {
       await logout();
@@ -30,16 +35,25 @@ const Dashboard = () => {
         setCourses(uniqueCourses);
         setLoading(false);
       } catch (err) {
-        setError('Failed to fetch students');
+        setError("Failed to fetch students");
         setLoading(false);
       }
     };
     fetchStudents();
   }, []);
 
-  const filteredStudents = filterCourse
+  // Filter students by course
+  const filteredStudents = filterCourse 
     ? students.filter(student => student.course === filterCourse)
     : students;
+
+  // Get current students
+  const indexOfLastStudent = currentPage * studentsPerPage;
+  const indexOfFirstStudent = indexOfLastStudent - studentsPerPage;
+  const currentStudents = filteredStudents.slice(indexOfFirstStudent, indexOfLastStudent);
+
+  // Change page
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#0f2027] via-[#203a43] to-[#2c5364] py-8 px-4">
@@ -80,7 +94,10 @@ const Dashboard = () => {
           <select
             id="course-filter"
             value={filterCourse}
-            onChange={e => setFilterCourse(e.target.value)}
+            onChange={(e) => {
+              setFilterCourse(e.target.value);
+              setCurrentPage(1); // Reset to first page when filter changes
+            }}
             className="w-full md:w-64 rounded-lg border border-blue-700 shadow-sm px-4 py-2 bg-[#1a2233] text-blue-200 focus:outline-none focus:ring-2 focus:ring-blue-500"
           >
             <option value="">All Courses</option>
@@ -101,45 +118,64 @@ const Dashboard = () => {
             <p>{error}</p>
           </div>
         ) : (
-          <div className="bg-[#181f2a] rounded-xl shadow overflow-hidden">
-            {filteredStudents.length === 0 ? (
-              <div className="p-6 text-center text-blue-200">No students found</div>
-            ) : (
-              <div className="overflow-x-auto">
-                <table className="min-w-full divide-y divide-blue-800">
-                  <thead className="bg-[#232c3b]">
-                    <tr>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-blue-200 uppercase tracking-wider">ID</th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-blue-200 uppercase tracking-wider">Name</th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-blue-200 uppercase tracking-wider">Email</th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-blue-200 uppercase tracking-wider">Course</th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-blue-200 uppercase tracking-wider">GPA</th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-blue-200 uppercase tracking-wider">Actions</th>
-                    </tr>
-                  </thead>
-                  <tbody className="bg-[#181f2a] divide-y divide-blue-900">
-                    {filteredStudents.map(student => (
-                      <tr key={student.id} className="hover:bg-blue-900 transition">
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-blue-300">{student.id}</td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-blue-100">{student.name}</td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-blue-300">{student.email}</td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-blue-300">{student.course}</td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-blue-300">{student.gpa}</td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                          <Link
-                            to={`/students/${student.id}`}
-                            className="text-blue-400 hover:text-white underline"
-                          >
-                            View Details
-                          </Link>
-                        </td>
+          <>
+            <div className="bg-[#181f2a] rounded-xl shadow overflow-hidden">
+              {currentStudents.length === 0 ? (
+                <div className="p-6 text-center text-blue-200">No students found</div>
+              ) : (
+                <div className="overflow-x-auto">
+                  <table className="min-w-full divide-y divide-blue-800">
+                    <thead className="bg-[#232c3b]">
+                      <tr>
+                        <th className="px-6 py-3 text-left text-xs font-medium text-blue-200 uppercase tracking-wider">ID</th>
+                        <th className="px-6 py-3 text-left text-xs font-medium text-blue-200 uppercase tracking-wider">Name</th>
+                        <th className="px-6 py-3 text-left text-xs font-medium text-blue-200 uppercase tracking-wider">Email</th>
+                        <th className="px-6 py-3 text-left text-xs font-medium text-blue-200 uppercase tracking-wider">Course</th>
+                        <th className="px-6 py-3 text-left text-xs font-medium text-blue-200 uppercase tracking-wider">GPA</th>
+                        <th className="px-6 py-3 text-left text-xs font-medium text-blue-200 uppercase tracking-wider">Actions</th>
                       </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            )}
-          </div>
+                    </thead>
+                    <tbody className="bg-[#181f2a] divide-y divide-blue-900">
+                      {currentStudents.map(student => (
+                        <tr key={student.id} className="hover:bg-blue-900 transition">
+                          <td className="px-6 py-4 whitespace-nowrap text-sm text-blue-300">{student.id}</td>
+                          <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-blue-100">{student.name}</td>
+                          <td className="px-6 py-4 whitespace-nowrap text-sm text-blue-300">{student.email}</td>
+                          <td className="px-6 py-4 whitespace-nowrap text-sm text-blue-300">{student.course}</td>
+                          <td className="px-6 py-4 whitespace-nowrap text-sm text-blue-300">{student.gpa}</td>
+                          <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                            <Link
+                              to={`/students/${student.id}`}
+                              className="text-blue-400 hover:text-white underline"
+                            >
+                              View Details
+                            </Link>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              )}
+            </div>
+
+            {/* Pagination Controls */}
+            <div className="flex justify-center mt-6 space-x-2">
+              {Array.from({ length: Math.ceil(filteredStudents.length / studentsPerPage) }).map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => paginate(index + 1)}
+                  className={`px-4 py-2 rounded-lg ${
+                    currentPage === index + 1
+                      ? 'bg-blue-700 text-white'
+                      : 'bg-[#1a2233] text-blue-300 hover:bg-blue-800'
+                  }`}
+                >
+                  {index + 1}
+                </button>
+              ))}
+            </div>
+          </>
         )}
       </div>
     </div>
